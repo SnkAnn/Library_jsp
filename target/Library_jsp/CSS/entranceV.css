@@ -1,0 +1,36 @@
+#ent_header {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#entrance-form {
+  width: 50%;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"], input[type="password"] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+input[type="submit"].register-button {
+  float: right;
+  background-color: #1f873b;
+}

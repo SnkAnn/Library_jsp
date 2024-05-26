@@ -1,0 +1,74 @@
+body {
+  background-color: grey;
+}
+#ent_header {
+  color: white;
+  position: relative;
+  text-align: center;
+  font-size: 44px;
+  margin-bottom: 20px;
+}
+
+#entrance-form {
+  background-color: whitesmoke;
+  width: 50%;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"], input[type="password"] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="submit"], input[type="button"] {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+input[type="button"].register-button {
+  float: right;
+  background-color: #1f873b;
+}
+
+.error-message {
+  background-color: #333333;
+  background-position: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-button {
+  position: absolute;
+  color: white;
+  top: 3px;
+  right: 4px;
+  font-size: 40px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.text-of-error{
+  position: absolute;
+  font-size: 30px;
+  color: white;
+  top:80%;
+}

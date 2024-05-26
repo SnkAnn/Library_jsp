@@ -1,0 +1,183 @@
+
+.success-message {
+    background-color: #333333;
+    background-position: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.close-button {
+    position: absolute;
+    color: white;
+    top: -40px;
+    right: -130pt;
+    font-size: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.text-of-success{
+    position: absolute;
+    font-size: 30px;
+    color: white;
+    top:80%;
+}
+
+
+
+
+/* скрываем чекбокс */
+#menu__toggle {
+    opacity: 0;
+}
+/* стилизуем кнопку */
+.menu__btn {
+    display: flex; /* используем flex для центрирования содержимого */
+    align-items: center;  /* центрируем содержимое кнопки */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+}
+/* добавляем "гамбургер" */
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+    display: block;
+    position: absolute;
+    top:30px;
+    width: 100%;
+    height: 2px;
+    background-color: #616161;
+}
+.menu__btn > span::before {
+    content: '';
+    top: -8px;
+}
+.menu__btn > span::after {
+    content: '';
+    top: 8px;
+}
+/* контейнер меню */
+.menu__box {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+    width: 200px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    text-align: center;
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+}
+/* элементы меню */
+.menu__item {
+    display: block;
+    padding: 12px 24px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.menu__item:hover {
+    background-color: #CFD8DC;
+}
+#menu__toggle:checked ~ .menu__btn > span {
+    transform: rotate(45deg);
+}
+#menu__toggle:checked ~ .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0);
+}
+#menu__toggle:checked ~ .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+#menu__toggle:checked ~ .menu__box {
+    visibility: visible;
+    left: 0;
+}
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+    transition-duration: .25s;
+}
+.menu__box {
+    transition-duration: .25s;
+}
+.menu__item {
+    transition-duration: .25s;
+}
+/*img{*/
+/*    width:30pt;*/
+/*    height: 30pt;*/
+/*}*/
+.profile-image {
+    /*margin: 20px;*/
+
+    background-color: white;
+    position: absolute;
+    top:100pt;
+    left: 200pt;
+    float: left;
+    width: 200px;
+    height: 220px;
+    border: 2px solid lightgrey;
+}
+/*body {*/
+/*    background-color: #CFD8DC;*/
+/*}*/
+p1{
+    /*background-color: white;*/
+    position: absolute;
+    top:110pt;
+    left: 500pt;
+    right:200pt;
+    word-wrap: break-word;
+    text-align: left;
+}
+a1{
+    position: absolute;
+    top:600px;
+    left:220px;
+    text-align: center;
+}
+a2{
+    position: absolute;
+    top:600px;
+    left:670px;
+    text-align:center;
+}
+button{
+    width: 300pt;
+    height: 100pt;
+    background-color: whitesmoke;
+    font-size: 30px;
+    border-color: lightgrey;
+}
+a3{
+    position: absolute;
+    top:670pt;
+    left:500pt;
+    font-size: 25pt;
+}
+.person{
+    z-index: 1111;
+}

@@ -1,0 +1,16 @@
+2023-06-02 14:44:53 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  C:\Users\Коля\AppData\Local\JetBrains\IntelliJIdea2022.2\temp-testng-customsuite.xml
+
+2023-06-02 14:44:53 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded
+2023-06-02 14:44:53 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded
+2023-06-02 14:44:53 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded
+2023-06-02 14:49:26 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  C:\Users\Коля\AppData\Local\JetBrains\IntelliJIdea2022.2\temp-testng-customsuite.xml
+
+2023-06-02 14:49:26 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded
+2023-06-02 16:07:35 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  C:\Users\Коля\AppData\Local\JetBrains\IntelliJIdea2022.2\temp-testng-customsuite.xml
+
+2023-06-02 16:07:35 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded
+2023-06-02 16:07:35 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded
+2023-06-02 16:07:35 [main] ERROR by.fpmibsu.LIBRARY.Pool.ConnectionPool - The limit of number of database connections is exceeded

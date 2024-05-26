@@ -1,0 +1,13 @@
+<?php
+$db=new PDO(jdbc:postgresql://localhost:5432/LIBRARY,postgres,mina1a2a3a);
+
+$info=[];
+
+if($query=$db-> query("SELECT*  FROM literature"){
+
+}
+
+
+
+
+?>
