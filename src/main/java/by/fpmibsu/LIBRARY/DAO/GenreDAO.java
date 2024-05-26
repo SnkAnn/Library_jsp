@@ -1,22 +1,20 @@
+package by.fpmibsu.LIBRARY.DAO;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import by.fpmibsu.LIBRARY.Pool.ConnectionPool;
+import by.fpmibsu.LIBRARY.exception.PersistentException;
+import lombok.SneakyThrows;
 
 public class GenreDAO {
-    // JDBC URL, username и password для подключения к базе данных
-    private static final String URL = "jdbc:mysql://localhost:3306/your_database";
-    private static final String USERNAME = "your_username";
-    private static final String PASSWORD = "your_password";
+
 
     // SQL запросы
     private static final String INSERT_GENRE_SQL = "INSERT INTO genres (name) VALUES (?)";
     private static final String SELECT_ALL_GENRES_SQL = "SELECT * FROM genres";
     private static final String DELETE_GENRE_SQL = "DELETE FROM genres WHERE id = ?";
 
-    // Метод для создания соединения с базой данных
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-    }
 
     // Метод для закрытия ресурсов JDBC
     private void close(Connection connection, Statement statement, ResultSet resultSet) {
@@ -31,19 +29,20 @@ public class GenreDAO {
 
     // Метод для добавления нового жанра в базу данных
     public void addGenre(String name) {
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_GENRE_SQL)) {
             preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | PersistentException e) {
             e.printStackTrace();
         }
     }
 
     // Метод для получения списка всех жанров из базы данных
+    @SneakyThrows
     public List<String> getAllGenres() {
         List<String> genres = new ArrayList<>();
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_GENRES_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -57,8 +56,9 @@ public class GenreDAO {
     }
 
     // Метод для удаления жанра по его ID
+    @SneakyThrows
     public void deleteGenre(int id) {
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_GENRE_SQL)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
