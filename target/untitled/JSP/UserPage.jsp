@@ -32,7 +32,7 @@
         <span></span>
     </label>
     <ul class="menu__box">
-        <li><a class="menu__item" href="Favorite_Book.jsp">Топ моих книг</a></li>
+        <li><a class="menu__item" href="/JSP/Favorite_Book.jsp">Топ моих книг</a></li>
         <li><a class="menu__item" href="#">Проекты</a></li>
         <li><a class="menu__item" href="#">Команда</a></li>
         <li><a class="menu__item" href="#">Блог</a></li>

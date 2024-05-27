@@ -1,8 +1,11 @@
 package by.fpmibsu.LIBRARY.Servlet;
 
-import by.fpmibsu.LIBRARY.DAO.GenreDAO;
+import by.fpmibsu.LIBRARY.Service.GenreService;
 import by.fpmibsu.LIBRARY.entity.Genre;
-
+import by.fpmibsu.LIBRARY.util.JspHelper;
+import lombok.SneakyThrows;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/genres")
+@WebServlet("/Library")
 public class GenreServlet extends HttpServlet {
-    private GenreDAO genreDAO;
+    private final GenreService genreService = GenreService.getInstance();
+
+    private static Logger logger = LogManager.getLogger(GenreServlet.class);
 
     @Override
-    public void init() {
-        genreDAO = new GenreDAO();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Genre> genres = genreDAO.getAllGenres();
-        System.out.println("Genres in Servlet: " + genres.toString());
-        request.setAttribute("genres", genres);
-        request.getRequestDispatcher("/JSP/Library.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<String> genres = genreService.getAllGenres();
+        req.setAttribute("genres", genres);
+        req.getRequestDispatcher("/JSP/Library.jsp").forward(req, resp);
+        logger.debug("Genres were successfully loaded and forwarded to Library.jsp");
     }
 }

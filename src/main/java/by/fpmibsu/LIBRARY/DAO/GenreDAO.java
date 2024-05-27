@@ -16,9 +16,9 @@ public class GenreDAO {
     private static final String SELECT_ALL_GENRES_SQL = "SELECT * FROM genres";
     private static final String DELETE_GENRE_SQL = "DELETE FROM genres WHERE id = ?";
     @SneakyThrows
-    public List<Genre> getAllGenres() {
-        List<Genre> genres = new ArrayList<>();
-        String query = "SELECT  * FROM genres";
+    public List<String> getAllGenres() {
+        List<String> genres = new ArrayList<>();
+        String query = "SELECT  genre_name FROM genres";
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              Statement statement = connection.createStatement();
@@ -26,9 +26,8 @@ public class GenreDAO {
 
             while (resultSet.next()) {
                 Genre genre = new Genre();
-                genre.setId(resultSet.getInt("genre_id"));
                 genre.setName(resultSet.getString("genre_name"));
-                genres.add(genre);
+                genres.add(genre.getName());
             }
         } catch (SQLException e) {
             e.printStackTrace();

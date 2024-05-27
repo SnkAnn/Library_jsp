@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(JspHelper.getPath("login"))
+        req.getRequestDispatcher(JspHelper.getPath("Entrance"))
                 .forward(req, resp);
     }
 
@@ -40,8 +40,8 @@ public class LoginServlet extends HttpServlet {
     @SneakyThrows
     private void onLoginSuccess(UserDto user, HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("user", user.getLogin());
-        req.getRequestDispatcher("/JSP/UserPage.jsp").forward(req, resp);
-        //resp.sendRedirect("/JSP/UserPage.jsp");
+       // req.getRequestDispatcher("/JSP/UserPage.jsp").forward(req, resp);
+        resp.sendRedirect("/JSP/UserPage.jsp");
         logger.debug(("Request was redirected to UserPage.jsp"));
     }
 
