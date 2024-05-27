@@ -20,7 +20,6 @@
         <span></span>
     </label>
     <ul class="menu__box_1">
-        <li><a class="menu__item" href="/JSP/Genre.jsp">Енот</a></li>
         <c:forEach var="genre" items="${genres}">
             <li><a class="menu__item_1" href="/JSP/Genre.jsp">${genre}</a></li>
         </c:forEach>
@@ -35,6 +34,9 @@
 <form class="button_for_reading">
     <button onclick="window.open('/JSP/BookReading.jsp ')">Продолжить прочтение</button>
 </form>
+<c:forEach var="genre" items="${genres}">
+    <a><button class="menu__item_button" onclick="window.location.href='/JSP/Genre.jsp'">${genre}</button></a>
+</c:forEach>
 <script src="../JS/Library.js"></script>
 </body>
 </html>

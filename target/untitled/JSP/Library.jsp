@@ -35,6 +35,9 @@
 <form class="button_for_reading">
     <button onclick="window.open('/JSP/BookReading.jsp ')">Продолжить прочтение</button>
 </form>
+<c:forEach var="genre" items="${genres}">
+    <a><button class="menu__item_button" onclick="window.location.href='/JSP/Genre.jsp'">${genre}</button></a>
+</c:forEach>
 <script src="../JS/Library.js"></script>
 </body>
 </html>
