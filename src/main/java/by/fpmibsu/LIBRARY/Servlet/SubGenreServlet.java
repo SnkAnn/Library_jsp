@@ -11,19 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/Genre")
-public class GenreServlet extends HttpServlet {
+@WebServlet("/subGenre")
+public class SubGenreServlet extends HttpServlet {
     private final LiteratureService literatureService = LiteratureService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String genre = request.getParameter("genre");
-        List<String> subGenres = literatureService.getSubGenresByGenre(genre);
-        List<Literature> books = literatureService.getBooksByGenre(genre);
-        request.setAttribute("subGenres", subGenres);
-        request.setAttribute("genre",genre);
+        String subGenre = request.getParameter("subGenre");
+        String genre =request.getParameter("genre");
+        List<Literature> books = literatureService.getBooksBySubGenre(subGenre,genre);
         request.setAttribute("books", books);
-        request.getRequestDispatcher("/JSP/Genre.jsp").forward(request, response);
+        request.getRequestDispatcher("/JSP/SubGenre.jsp").forward(request, response);
     }
 }

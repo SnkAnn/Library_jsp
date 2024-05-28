@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -9,16 +10,20 @@
 </head>
 <body>
 
-<a>
-    <img src="../Images/book1.jpeg " onclick="expandImage(this)"><p1> Дата издания: <br> Автор:  <br> Жанр: </p1>
-    <p2><details>
-        <summary>Описание книги</summary>
-        <p>.............................................................................................................................................</p>
-    </details></p2>
-    <p3><button style=" width: 170pt; height: 30pt; background-color: whitesmoke;font-size: 15px; border-color: lightgrey;"onclick="window.location.href='BookReading.jsp '"
-    >Начать читать</button></p3>
-</a>
+<div class="books-container">
+    <%-- Здесь будут отображаться книги выбранного под жанра --%>
+    <c:forEach var="book" items="${books}">
+        <a>
+            <img src="${book.image}" onclick="expandImage(this)">
+            <p>Название: ${book.title}<br>Дата издания: ${book.addingTime}<br> Автор: ${book.author.login}<br> Жанр: ${book.genre}</p>
+            <details>
+                <summary>Описание книги</summary>
+                <p>${book.text}</p>
+            </details>
+            <button style="width: 170pt; height: 30pt; background-color: whitesmoke; font-size: 15px; border-color: lightgrey;" onclick="window.location.href='/JSP/BookReading.jsp'">Начать читать</button>
+        </a>
+    </c:forEach>
+</div>
 <script src="../JS/Genre.js"></script>
-<a8> ..... </a8>
 </body>
 </html>

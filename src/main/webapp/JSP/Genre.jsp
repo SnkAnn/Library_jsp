@@ -9,7 +9,7 @@
 <body>
 <div class="subGenres-container">
     <c:forEach var="subGenre" items="${subGenres}">
-        <a href="<c:url value='/JSP/SubGenre.jsp?genre=${subGenre}'/>">
+        <a href="<c:url value='/subGenre?subGenre=${subGenre}&genre=${genre}'/>">
             <button class="menu__item_button">${subGenre}</button>
         </a>
     </c:forEach>

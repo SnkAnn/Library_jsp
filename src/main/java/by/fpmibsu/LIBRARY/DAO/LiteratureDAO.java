@@ -19,6 +19,7 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
     private static final String FIND_BY_TITLE = "SELECT * FROM literature WHERE title LIKE ?";
     private static final String FIND_BY_GENRE = "SELECT * FROM literature WHERE genre = ?";
     private static final String FIND_SUBGENRES_BY_GENRE = "SELECT sub_genre FROM literature WHERE genre = ?";
+    private static final String FIND_BOOKS_BY_GENRE_AND_SUBGENRE ="SELECT * FROM literature WHERE sub_genre = ? AND genre=?" ;
 
     public static LiteratureDAO getInstance() {
         return INSTANCE;
@@ -142,6 +143,22 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
             entity.setLiteratureID(generatedKeys.getObject("literature_id", Integer.class));
 
             return entity;
+        }
+    }
+
+    public List<Literature> getBooksBySubGenre(String subGenre, String genre) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(FIND_BOOKS_BY_GENRE_AND_SUBGENRE)) {
+            preparedStatement.setString(1, subGenre);
+            preparedStatement.setString(2, genre);
+            var resultSet = preparedStatement.executeQuery();
+            List<Literature> subGenresBook = new ArrayList<>();
+            while (resultSet.next()) {
+                subGenresBook.add(buildLiterature(resultSet));
+            }
+            return subGenresBook;
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
         }
     }
 }
