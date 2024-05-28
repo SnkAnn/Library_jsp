@@ -2,7 +2,6 @@
 <%@ page import="by.fpmibsu.LIBRARY.entity.Genre" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -20,24 +19,31 @@
         <span></span>
     </label>
     <ul class="menu__box_1">
-        <li><a class="menu__item" href="/JSP/Genre.jsp">Енот</a></li>
         <c:forEach var="genre" items="${genres}">
-            <li><a class="menu__item_1" href="/JSP/Genre.jsp">${genre}</a></li>
+            <li><a class="menu__item_1" href="<c:url value='/Genre?genre=${genre}'/>">${genre}</a></li>
         </c:forEach>
     </ul>
 </div>
+
 <form class="Search">
     <textarea placeholder="Поиск"></textarea>
 </form>
-<form class="button_for_author">
-    <button onclick="window.open('/JSP/Entrance.jsp')">Стать автором</button>
-</form>
-<form class="button_for_reading">
-    <button onclick="window.open('/JSP/BookReading.jsp ')">Продолжить прочтение</button>
-</form>
-<c:forEach var="genre" items="${genres}">
-    <a><button class="menu__item_button" onclick="window.location.href='/JSP/Genre.jsp'">${genre}</button></a>
-</c:forEach>
+<div class="buttons-container">
+    <form class="button_for_author">
+        <button onclick="window.open('/JSP/Entrance.jsp')">Стать автором</button>
+    </form>
+    <form class="button_for_reading">
+        <button onclick="window.open('/JSP/BookReading.jsp')">Продолжить прочтение</button>
+    </form>
+</div>
+<div class="genres-container">
+    <c:forEach var="genre" items="${genres}">
+        <a href="<c:url value='/Genre?genre=${genre}'/>">
+            <button class="menu__item_button">${genre}</button>
+        </a>
+    </c:forEach>
+</div>
+
 <script src="../JS/Library.js"></script>
 </body>
 </html>

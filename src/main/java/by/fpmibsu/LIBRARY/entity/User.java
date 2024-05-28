@@ -19,4 +19,10 @@ public class User {
     public List<Complaints> complaints;
     public List<Bookmark> bookmarksOfUser;
     public Literature literatureOfAuthor;
+
+    // Метод для получения имени пользователя
+    public String getName() {
+        // Возвращаем имя пользователя, в данном случае просто логин
+        return login;
+    }
 }

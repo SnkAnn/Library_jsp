@@ -8,6 +8,7 @@ public class Literature {
     private int reviewLiteratureID;
     private Image image;
     private String genre;
+    private String subGenre;
     private String title;
     public User author;
     public Reviews review;
@@ -16,7 +17,7 @@ public class Literature {
     private String addingTime;
     public Literature(){}
 
-    public Literature(int literatureID, String title, int authorLiteratureID, int reviewLiteratureID, String text, int amountOfReads, String addingTime, String genre) {
+    public Literature(int literatureID, String title, int authorLiteratureID, int reviewLiteratureID, String text, int amountOfReads, String addingTime, String genre,String subGenre) {
         this.literatureID = literatureID;
         this.authorLiteratureID = authorLiteratureID;
         this.reviewLiteratureID = reviewLiteratureID;
@@ -25,9 +26,10 @@ public class Literature {
         this.text = text;
         this.amountOfReads = amountOfReads;
         this.addingTime = addingTime;
+        this.subGenre=subGenre;
     }
 
-    public Literature(int literatureID, String title, int authorLiteratureID, int reviewLiteratureID, String text, int amountOfReads, String addingTime, Image image, String genre) {
+    public Literature(int literatureID, String title, int authorLiteratureID, int reviewLiteratureID, String text, int amountOfReads, String addingTime, Image image, String genre,String subGenre) {
         this.literatureID = literatureID;
         this.authorLiteratureID = authorLiteratureID;
         this.reviewLiteratureID = reviewLiteratureID;
@@ -37,10 +39,11 @@ public class Literature {
         this.text = text;
         this.amountOfReads = amountOfReads;
         this.addingTime = addingTime;
+        this.subGenre=subGenre;
     }
 
     public Literature(String title, int authorLiteratureID, int reviewLiteratureID, String text,
-                      int amountOfReads, String addingTime, Image image, String genre) {
+                      int amountOfReads, String addingTime, Image image, String genre,String subGenre) {
         this.title = title;
         this.authorLiteratureID = authorLiteratureID;
         this.reviewLiteratureID = reviewLiteratureID;
@@ -49,18 +52,10 @@ public class Literature {
         this.addingTime = addingTime;
         this.image=image;
         this.genre=genre;
+        this.subGenre=subGenre;
     }
 
-    public Literature(String title, User author, Reviews review, String text, int amountOfReads, String addingTime,Image image,String genre) {
-        this.title = title;
-        this.author = author;
-        this.review = review;
-        this.text = text;
-        this.amountOfReads = amountOfReads;
-        this.addingTime = addingTime;
-        this.image=image;
-        this.genre=genre;
-    }
+
     public Image getImage(){
         return image;
     }
@@ -152,4 +147,7 @@ public class Literature {
                 '}';
     }
 
+    public Object getSubGenre() {
+        return subGenre;
+    }
 }

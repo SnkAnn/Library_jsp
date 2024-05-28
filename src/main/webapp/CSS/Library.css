@@ -1,4 +1,4 @@
-
+/* Стили кнопок поиска и кнопок автора/чтения */
 .Search {
     position: absolute;
     top: 100px;
@@ -6,7 +6,7 @@
     float: none;
 }
 
-#header, #read_header {
+#header {
     width: 100%;
     height: 70px;
     border-bottom: 4px solid silver;
@@ -35,12 +35,6 @@
     left: 1080px;
 }
 
-.author_link {
-    border-radius: 5px;
-    background-color: blue;
-    float: left;
-}
-
 .buttons-container {
     display: flex;
     flex-direction: column;
@@ -60,6 +54,7 @@
 #menu__toggle_1 {
     opacity: 0;
 }
+
 /* Стилизация кнопки меню */
 .menu__btn_1 {
     display: flex;
@@ -147,20 +142,12 @@
     transition-duration: .25s;
 }
 
-button {
-    width: 130pt;
-    height: 130pt;
-    background-color: whitesmoke;
-    font-size: 25px;
-    border-color: lightgrey;
-}
-
 .genres-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    justify-items: center;
-    margin-top: 400px;
+    justify-content: center;
+    margin-top: 50px;
 }
 
 .menu__item_button {
@@ -175,70 +162,3 @@ button {
 .menu__item_button:hover {
     background-color: #CFD8DC;
 }
-
-/* Стили для изображения и текста */
-img {
-    position: absolute;
-    top: 1580px;
-    left: 270px;
-    float: left;
-    width: 250px;
-    height: auto;
-    border: 1px solid lightgrey;
-}
-img.expanded {
-    width: 350pt;
-    height: 100%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-}
-
-#my-list {
-    display: none;
-}
-#toggle-list:focus + #my-list {
-    display: block;
-}
-
-p1, p2, p3 {
-    word-wrap: break-word;
-    text-align: left;
-}
-
-p1 {
-    position: absolute;
-    top: 1590px;
-    left: 450pt;
-    right: 270px;
-}
-
-p2 {
-    position: absolute;
-    top: 1690px;
-    left: 450pt;
-    right: 270px;
-}
-
-p3 {
-    position: absolute;
-    top: 1883px;
-    left: 450pt;
-    text-align: center;
-}
-
-a1, a2, a3, a4, a5, a6, a7, a8 {
-    position: absolute;
-    text-align: center;
-}
-
-a1 { top: 800px; left: 270px; }
-a2 { top: 800px; left: 545px; }
-a3 { top: 800px; right: 270px; }
-a4 { top: 1030px; left: 270px; }
-a5 { top: 1030px; left: 545px; }
-a6 { top: 1030px; right: 270px; }
-a7 { top: 1130px; left: 450pt; font-size: 25pt; }
-a8 { top: 1000pt; left: 450pt; font-size: 25pt; }

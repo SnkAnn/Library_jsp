@@ -1,16 +1,16 @@
 package by.fpmibsu.LIBRARY.Service;
 
 import by.fpmibsu.LIBRARY.DAO.GenreDAO;
-import by.fpmibsu.LIBRARY.entity.Genre;
+
 import java.util.List;
 
-public class GenreService {
-    private static final GenreService INSTANCE = new GenreService();
+public class LibraryService {
+    private static final LibraryService INSTANCE = new LibraryService();
     private final GenreDAO genreDAO = new GenreDAO();
 
-    private GenreService() {}
+    private LibraryService() {}
 
-    public static GenreService getInstance() {
+    public static LibraryService getInstance() {
         return INSTANCE;
     }
 

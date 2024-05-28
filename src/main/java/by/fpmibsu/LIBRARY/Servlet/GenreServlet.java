@@ -1,11 +1,8 @@
 package by.fpmibsu.LIBRARY.Servlet;
 
-import by.fpmibsu.LIBRARY.Service.GenreService;
-import by.fpmibsu.LIBRARY.entity.Genre;
-import by.fpmibsu.LIBRARY.util.JspHelper;
-import lombok.SneakyThrows;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.fpmibsu.LIBRARY.Service.LiteratureService;
+import by.fpmibsu.LIBRARY.entity.Literature;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,17 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/Library")
+@WebServlet("/Genre")
 public class GenreServlet extends HttpServlet {
-    private final GenreService genreService = GenreService.getInstance();
-
-    private static Logger logger = LogManager.getLogger(GenreServlet.class);
+    private final LiteratureService literatureService = LiteratureService.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<String> genres = genreService.getAllGenres();
-        req.setAttribute("genres", genres);
-        req.getRequestDispatcher("/JSP/Library.jsp").forward(req, resp);
-        logger.debug("Genres were successfully loaded and forwarded to Library.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String genre = request.getParameter("genre");
+        List<String> subGenres = literatureService.getSubGenresByGenre(genre);
+        List<Literature> books = literatureService.getBooksByGenre(genre);
+        request.setAttribute("subGenres", subGenres);
+        request.setAttribute("books", books);
+        request.getRequestDispatcher("/JSP/Genre.jsp").forward(request, response);
     }
 }
