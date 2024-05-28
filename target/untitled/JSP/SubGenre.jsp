@@ -20,9 +20,10 @@
                 <summary>Описание книги</summary>
                 <p>${book.text}</p>
             </details>
-            <button style="width: 170pt; height: 30pt; background-color: whitesmoke; font-size: 15px; border-color: lightgrey;" onclick="window.location.href='/JSP/BookReading.jsp'">Начать читать</button>
+            <button style="width: 170pt; height: 30pt; background-color: whitesmoke; font-size: 15px; border-color: lightgrey;" onclick="window.location.href='/TextOfBook?book=${book.title}&authorID=${book.authorLiteratureID}'">Начать читать</button>
         </a>
     </c:forEach>
+
 </div>
 <script src="../JS/Genre.js"></script>
 </body>

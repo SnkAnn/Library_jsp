@@ -15,11 +15,12 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
     private static final LiteratureDAO INSTANCE = new LiteratureDAO();
 
     private static final String FIND_ALL = "SELECT * FROM literature";
-    private static final String SAVE_SQL = "INSERT INTO literature (title,author_id,review_id,text,amount_of_read,adding_time,image,genre,sub_genre) VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String SAVE_SQL = "INSERT INTO literature (title,author_id,review_id,text,amount_of_read,adding_time,image,genre,sub_genre,text_of_book) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String FIND_BY_TITLE = "SELECT * FROM literature WHERE title LIKE ?";
     private static final String FIND_BY_GENRE = "SELECT * FROM literature WHERE genre = ?";
-    private static final String FIND_SUBGENRES_BY_GENRE = "SELECT sub_genre FROM literature WHERE genre = ?";
-    private static final String FIND_BOOKS_BY_GENRE_AND_SUBGENRE ="SELECT * FROM literature WHERE sub_genre = ? AND genre=?" ;
+    private static final String FIND_SUBGENRES_BY_GENRE = "SELECT DISTINCT sub_genre FROM literature WHERE genre = ? ";
+    private static final String FIND_BOOKS_BY_GENRE_AND_SUBGENRE ="SELECT * FROM literature WHERE sub_genre = ? AND genre=? " ;
+    private static final String GET_TEXT_OF_BOOK ="SELECT DISTINCT text_of_book FROM literature WHERE title = ? AND author_id=? ";
 
     public static LiteratureDAO getInstance() {
         return INSTANCE;
@@ -105,6 +106,11 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
                 resultSet.getObject("sub_genre", String.class)
         );
     }
+    private String buildTextOfBook(ResultSet resultSet) throws SQLException {
+        return new String(
+                resultSet.getObject("text_of_book", String.class)
+        );
+    }
     private Literature buildLiterature(ResultSet resultSet) throws SQLException {
         return new Literature(
                 resultSet.getObject("literature_id", Integer.class),
@@ -115,7 +121,8 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
                 resultSet.getObject("amount_of_reads", Integer.class),
                 resultSet.getObject("adding_time", String.class),
                 resultSet.getObject("genre", String.class),
-                resultSet.getObject("sub_genre", String.class)
+                resultSet.getObject("sub_genre", String.class),
+                resultSet.getObject("text_of_book", String.class)
         );
     }
 
@@ -135,6 +142,7 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
             preparedStatement.setObject(7, entity.getImage());
             preparedStatement.setObject(8, entity.getGenre());
             preparedStatement.setObject(9, entity.getSubGenre());
+            preparedStatement.setObject(10, entity.getTextOfBook());
 
             preparedStatement.executeUpdate();
 
@@ -157,6 +165,23 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
                 subGenresBook.add(buildLiterature(resultSet));
             }
             return subGenresBook;
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getBookTextForRead(String book, String authorID) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(GET_TEXT_OF_BOOK)) {
+            preparedStatement.setString(1, book);
+            preparedStatement.setInt(2, Integer.parseInt(authorID));
+            var resultSet = preparedStatement.executeQuery();
+            StringBuilder str=new StringBuilder();
+            while (resultSet.next()) {
+                 str.append(resultSet.getObject("text_of_book", String.class));
+                //str.append(buildTextOfBook(resultSet));
+            }
+            return str.toString();
         } catch (SQLException | PersistentException e) {
             throw new RuntimeException(e);
         }

@@ -1,41 +1,45 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="../CSS/Genre.css" type ="text/css"/>
+  <header>
+    <button id="back-button">
+      <img src="ctrelka.png" alt="Back">
+    </button>
+  </header>
+  <title>Book Reading</title>
+  <link rel="stylesheet" href="../CSS/BookReading.css">
+
 </head>
 <body>
-<a1><button class="menu__item_button" onclick="window.location.href='SubGenre.jsp '" >Волшебные сказки</button></a1>
-<a2><button class="menu__item_button" onclick="window.location.href='SubGenre.jsp '">Бельгийские сказки</button></a2>
-<a3><button class="menu__item_button" onclick="window.location.href='SubGenre.jsp  '">Русские народные сказки</button></a3>
-<a4><button class="menu__item_button" onclick="window.location.href='SubGenre.jsp '">Итальянские сказки</button></a4>
-<a5><button class="menu__item_button" onclick="window.location.href='SubGenre.jsp '">Сказки для самых маленьких</button></a5>
-<a6><button class="menu__item_button" onclick="window.location.href='SubGenre.jsp  '">Сказки о животных</button></a6>
-<a7> ..... </a7>
-<div class="hamburger-menu">
-  <input id="menu__toggle" type="checkbox" />
-  <label class="menu__btn" for="menu__toggle">
-    <span></span>
-  </label>
-  <ul class="menu__box">
-    <li><a class="menu__item" href="">Pейтинг</a></li>
-    <li><a class="menu__item" href="#">Популярность</a></li>
-    <li><a class="menu__item" href="#">Недавно выложенные</a></li>
-    <li><a class="menu__item" href="#">Давно выложенные</a></li>
+<a href="#" id="bookmark-button">Add Bookmark</a>
+
+<div id="search-container">
+  <input type="text" id="search-input" placeholder="Search">
+  <button id="search-button">Search</button>
+</div>
+
+<div id="book-content">
+  <div id="book-page">
+    <iframe src="https://drive.google.com/file/d/1wBA8D9MEf-8_J2i0TnShbM1V8I9Fwwea/preview" width="640" height="480" allow="autoplay"></iframe>
+  </div>
+
+  <div id="next-page">
+    <a href="#" id="next-page-link">Next Page</a>
+  </div>
+
+  <a href="#" id="bookmarks-button">My Bookmarks</a>
+
+  <ul class="bookmark-list">
+    <!-- Bookmarks should be listed here -->
+    <li><a href="#">Bookmark 1</a></li>
+    <li><a href="#">Bookmark 2</a></li>
+    <li><a href="#">Bookmark 3</a></li>
   </ul>
 </div>
-<a>
-  <img src="../Images/book1.jpeg " onclick="expandImage(this)"><p1> Дата издания: <br> Автор:  <br> Жанр: </p1>
-  <p2><details>
-    <summary>Описание книги</summary>
-    <p>.............................................................................................................................................</p>
-  </details></p2>
-  <p3><button style=" width: 170pt; height: 30pt; background-color: whitesmoke;font-size: 15px; border-color: lightgrey;" onclick="window.location.href='BookReading.jsp '"
-  >Начать читать</button></p3>
-</a>
-<a href="http://localhost:8080/images">Перейти к списку литературы</a>
-<script src="../JS/Genre.js"></script>
-<a8> ..... </a8>
+
+<a href="#" id="return-button">Return</a>
+
+<script src="../JS/BookReading.js"></script>
 </body>
 </html>

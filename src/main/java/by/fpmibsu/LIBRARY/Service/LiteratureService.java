@@ -38,4 +38,7 @@ public class LiteratureService {
     public List<Literature> getBooksBySubGenre(String subGenre, String genre) {
         return literatureDAO.getBooksBySubGenre(subGenre,genre);
     }
+    public String getBookTextForRead(String book,String AuthorID){
+        return literatureDAO.getBookTextForRead(book, AuthorID);
+    }
 }
