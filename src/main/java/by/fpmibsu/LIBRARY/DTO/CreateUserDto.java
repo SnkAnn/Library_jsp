@@ -12,6 +12,8 @@ public class CreateUserDto {
     String password;
     String mail;
     Image image;
+
+
 }
 
 

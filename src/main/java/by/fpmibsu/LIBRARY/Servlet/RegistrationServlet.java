@@ -19,18 +19,16 @@ import org.xml.sax.ErrorHandler;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
-
     private static final Logger logger = LogManager.getLogger(RegistrationServlet.class);
     private final UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(JspHelper.getPath("Registration"))
-                .forward(req, resp);
+        req.getRequestDispatcher(JspHelper.getPath("Registration")).forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ValidationException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var userDto = CreateUserDto.builder()
                 .login(req.getParameter("username"))
                 .password(req.getParameter("password"))
@@ -38,15 +36,14 @@ public class RegistrationServlet extends HttpServlet {
                 .build();
         try {
             userService.create(userDto);
-            req.setAttribute("user", userDto.getLogin());
-            req.getRequestDispatcher("/JSP/UserPage.jsp").forward(req, resp);
-            resp.sendRedirect("/JSP/UserPage.jsp");
-        }catch (ValidationException exception){
-            req.setAttribute("errors",exception.getErrors());
-            doGet(req, resp);
+            // Перенаправляем запрос на сервлет UserServlet с параметром "user"
+            resp.sendRedirect("/User?userID=" + userService.getUserID( userDto.getLogin()));
+        } catch (ValidationException exception) {
+            req.setAttribute("errors", exception.getErrors());
+            req.getRequestDispatcher(JspHelper.getPath("Registration")).forward(req, resp);
             logger.error(exception);
             return;
         }
-        logger.info("New listing successfully created");
+        logger.info("New user successfully created");
     }
 }

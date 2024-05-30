@@ -21,6 +21,8 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
     private static final String FIND_SUBGENRES_BY_GENRE = "SELECT DISTINCT sub_genre FROM literature WHERE genre = ? ";
     private static final String FIND_BOOKS_BY_GENRE_AND_SUBGENRE ="SELECT * FROM literature WHERE sub_genre = ? AND genre=? " ;
     private static final String GET_TEXT_OF_BOOK ="SELECT DISTINCT text_of_book FROM literature WHERE title = ? AND author_id=? ";
+    private static final String GET_BOOK_BY_ID ="SELECT title FROM literature WHERE literature_id=?" ;
+    private static final String GET_AUTHOR_BY_BOOK_ID ="SELECT author_id FROM literature WHERE literature_id=?" ;
 
     public static LiteratureDAO getInstance() {
         return INSTANCE;
@@ -182,6 +184,36 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
                 //str.append(buildTextOfBook(resultSet));
             }
             return str.toString();
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getBookById(int last_book) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(GET_BOOK_BY_ID)) {
+            preparedStatement.setInt(1, last_book);
+            var resultSet = preparedStatement.executeQuery();
+            String str=new String();
+            while (resultSet.next()) {
+                str= resultSet.getObject("title", String.class);
+            }
+            return str;
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Integer getAuthorByBookId(int last_book) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(GET_AUTHOR_BY_BOOK_ID)) {
+            preparedStatement.setInt(1, last_book);
+            var resultSet = preparedStatement.executeQuery();
+            int res=0;
+            while (resultSet.next()) {
+                res= resultSet.getObject("author_id", Integer.class);
+            }
+            return res;
         } catch (SQLException | PersistentException e) {
             throw new RuntimeException(e);
         }

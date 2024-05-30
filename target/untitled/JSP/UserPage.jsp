@@ -6,26 +6,6 @@
     <link rel="stylesheet" href="../CSS/UserPage.css">
 </head>
 <body>
-<%
-    String prevPage = request.getHeader("Referer");
-    String user = (String) request.getAttribute("user");
-%>
-<div class="success-message">
-    <button class="close-button"  onclick="closeForm()" >×</button>
-    <p class="text-of-success">Привет <%= user %></p>
-</div>
-<%--<%--%>
-<%--    if(prevPage != null && prevPage.endsWith("Registration.jsp")){--%>
-<%--%>--%>
-<%--<div class="success-message">--%>
-<%--    <img class="im_success" src="../Images/green-tick.gif" alt="Success"  width="300" height=auto top="30%" left="50%">--%>
-<%--    <button class="close-button"  onclick="closeForm()" >×</button>--%>
-<%--    <p class="text-of-success">Регистрация выполнена успешно!</p>--%>
-<%--</div>--%>
-<%--<%--%>
-<%--    }--%>
-<%--%>--%>
-<!--<a href="javascript:history.back()"><img src="ctrelka.png"> </a>-->
 <div class="hamburger-menu">
     <input id="menu__toggle" type="checkbox" />
     <label class="menu__btn" for="menu__toggle">
@@ -33,29 +13,96 @@
     </label>
     <ul class="menu__box">
         <li><a class="menu__item" href="/JSP/Favorite_Book.jsp">Топ моих книг</a></li>
-        <li><a class="menu__item" href="#">Проекты</a></li>
-        <li><a class="menu__item" href="#">Команда</a></li>
-        <li><a class="menu__item" href="#">Блог</a></li>
-        <li><a class="menu__item" href="#">Контакты</a></li>
     </ul>
 </div>
 <div class="person">
-
-<a><div class="profile-image"><img  width="200px" height=" 220px", src="../Images/person.gif "></div><p1>Описание какой я красивый...........................................................................</p1></a>
-<a1>
-    <button onclick="AddBook()">Мои книги</button>
-    <br>
-    <button onclick="selectProfileImage()">Выбрать фотографию</button>
-
-</a1>
-<a2> <button onclick="continueReading()">Продолжить прочтение</button>
-     <br>
-    <button onclick="editDescription()">Изменить</button>
-</a2>
-<a3> ..... </a3>
+    <a>
+        <div class="profile-image">
+            <img id="profile-img" width="200px" height="220px" src="<%= request.getAttribute("userImage") %>">
+        </div>
+        <p1><%= request.getAttribute("userDescription") %></p1>
+    </a>
+    <a1>
+        <button onclick="AddBook()">Мои книги</button>
+        <br>
+        <button onclick="selectProfileImage()">Выбрать фотографию</button>
+    </a1>
+    <a2>
+        <button onclick="continueReading()">Продолжить прочтение</button>
+        <br>
+        <button onclick="editDescription()">Изменить</button>
+    </a2>
+    <a3> </a3>
 </div>
-<script src="../JS/UserPage.js"></script>
 <input type="file" id="profile-image-input" style="display: none;" onchange="handleProfileImageChange(event)">
+<script>
+    function editDescription() {
+        var newDescription = prompt("Введите новое описание:");
+        if (newDescription !== null) {
+            document.querySelector('p1').innerText = newDescription;
+            sendDescriptionToServlet(newDescription);
+        }
+    }
+
+    function sendDescriptionToServlet(description) {
+        var userId = "<%= request.getAttribute("userID") %>";
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/User", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("Описание успешно сохранено в базе данных");
+            } else if (xhr.readyState === 4) {
+                console.error("Ошибка при сохранении описания: " + xhr.statusText);
+            }
+        };
+
+        xhr.send(JSON.stringify({ userID: userId, description: description }));
+    }
+
+    function continueReading() {
+        window.location.href = '/TextOfBook?book=${lastBook}&authorID=${authorID}';
+    }
+
+    function AddBook() {
+        window.location.href = 'BookAdding.jsp';
+    }
+
+    function selectProfileImage() {
+        document.getElementById('profile-image-input').click();
+    }
+
+    function handleProfileImageChange(event) {
+        var input = event.target;
+        var reader = new FileReader();
+
+        reader.onload = function () {
+            var dataURL = reader.result;
+            var imgElement = document.getElementById('profile-img');
+            imgElement.src = dataURL;
+            sendImageUrlToServlet(dataURL);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    function sendImageUrlToServlet(imageUrl) {
+        var userId = "<%= request.getAttribute("userID") %>";
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/User", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("URL успешно отправлен на сервер");
+            } else if (xhr.readyState === 4) {
+                console.error("Ошибка при отправке URL: " + xhr.statusText);
+            }
+        };
+
+        xhr.send(JSON.stringify({ userID: userId, imageUrl: imageUrl }));
+    }
+</script>
 </body>
 </html>
-

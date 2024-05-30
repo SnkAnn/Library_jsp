@@ -1,54 +1,33 @@
-function closeForm() {
-    document.querySelector('.success-message').style.display = 'none';
-}
 function selectProfileImage() {
     document.getElementById('profile-image-input').click();
 }
-
 function handleProfileImageChange(event) {
-    var file = event.target.files[0];
+    var input = event.target;
     var reader = new FileReader();
-    reader.onload = function (event) {
-        document.getElementById('profile-image').src = event.target.result;
+
+    reader.onload = function () {
+        var dataURL = reader.result;
+        var imgElement = document.getElementById('profile-img');
+        imgElement.src = dataURL;
+        sendImageUrlToServlet(dataURL);
     };
-    reader.readAsDataURL(file);
+
+    reader.readAsDataURL(input.files[0]);
 }
 
-function editDescription() {
-    var newDescription = prompt("Введите новое описание:");
-    if (newDescription !== null) {
-        document.querySelector('p1').innerText = newDescription;
-        // Добавьте здесь код для сохранения описания
-    }
-}
-
-function continueReading() {
-    window.location.href = 'BookReading.jsp';
-}
-
-function uploadFile() {
-    document.getElementById('book-file-input').click();
-}
-
-function handleFileUpload(event) {
-    var file = event.target.files[0];
-    var formData = new FormData();
-    formData.append('file', file);
-
+function sendImageUrlToServlet(imageUrl) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/upload-file', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            var fileUrl = response.fileUrl;
-            alert('Файл успешно загружен: ' + fileUrl);
-        } else {
-            alert('Ошибка при загрузке файла.');
+    xhr.open("POST", "/User", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // Обработка успешного ответа от сервера (если необходимо)
+            console.log("URL успешно отправлен на сервер");
         }
     };
-    xhr.send(formData);
 
+    xhr.send(JSON.stringify({ imageUrl: imageUrl }));
 }
-function AddBook() {
-    window.location.href = 'BookAdding.jsp';
-}
+
+

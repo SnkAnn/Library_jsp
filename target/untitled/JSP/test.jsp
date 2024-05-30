@@ -1,45 +1,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
 <head>
   <meta charset="UTF-8">
-  <header>
-    <button id="back-button">
-      <img src="ctrelka.png" alt="Back">
-    </button>
-  </header>
-  <title>Book Reading</title>
-  <link rel="stylesheet" href="../CSS/BookReading.css">
-
+  <title>Library</title>
+  <link rel="stylesheet" href="../CSS/UserPage.css">
 </head>
 <body>
-<a href="#" id="bookmark-button">Add Bookmark</a>
-
-<div id="search-container">
-  <input type="text" id="search-input" placeholder="Search">
-  <button id="search-button">Search</button>
-</div>
-
-<div id="book-content">
-  <div id="book-page">
-    <iframe src="https://drive.google.com/file/d/1wBA8D9MEf-8_J2i0TnShbM1V8I9Fwwea/preview" width="640" height="480" allow="autoplay"></iframe>
-  </div>
-
-  <div id="next-page">
-    <a href="#" id="next-page-link">Next Page</a>
-  </div>
-
-  <a href="#" id="bookmarks-button">My Bookmarks</a>
-
-  <ul class="bookmark-list">
-    <!-- Bookmarks should be listed here -->
-    <li><a href="#">Bookmark 1</a></li>
-    <li><a href="#">Bookmark 2</a></li>
-    <li><a href="#">Bookmark 3</a></li>
+<div class="hamburger-menu">
+  <input id="menu__toggle" type="checkbox" />
+  <label class="menu__btn" for="menu__toggle">
+    <span></span>
+  </label>
+  <ul class="menu__box">
+    <li><a class="menu__item" href="/JSP/Favorite_Book.jsp">Мои прочтенные книги</a></li>
   </ul>
 </div>
+<div class="person">
 
-<a href="#" id="return-button">Return</a>
+  <a><div class="profile-image"><img  width="200px" height=" 220px", src="../Images/person.gif "></div><p1>Описание какой я красивый...........................................................................</p1></a>
+  <a1>
+    <button onclick="AddBook()">Мои книги</button>
+    <br>
+    <button onclick="selectProfileImage()">Выбрать фотографию</button>
 
-<script src="../JS/BookReading.js"></script>
+  </a1>
+  <a2> <button onclick="continueReading()">Продолжить прочтение</button>
+    <br>
+    <button onclick="editDescription()">Изменить</button>
+  </a2>
+  <a3> ..... </a3>
+</div>
+<script src="../JS/UserPage.js"></script>
+<input type="file" id="profile-image-input" style="display: none;" onchange="handleProfileImageChange(event)">
 </body>
 </html>
+

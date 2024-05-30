@@ -19,13 +19,11 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
-
-    private static Logger logger= LogManager.getLogger(LoginServlet.class);
+    private static Logger logger = LogManager.getLogger(LoginServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(JspHelper.getPath("Entrance"))
-                .forward(req, resp);
+        req.getRequestDispatcher(JspHelper.getPath("Entrance")).forward(req, resp);
     }
 
     @Override
@@ -39,10 +37,9 @@ public class LoginServlet extends HttpServlet {
 
     @SneakyThrows
     private void onLoginSuccess(UserDto user, HttpServletRequest req, HttpServletResponse resp) {
-        req.setAttribute("user", user.getLogin());
-       // req.getRequestDispatcher("/JSP/UserPage.jsp").forward(req, resp);
-        resp.sendRedirect("/JSP/UserPage.jsp");
-        logger.debug(("Request was redirected to UserPage.jsp"));
+        // Перенаправляем запрос на сервлет UserServlet с параметром "user"
+        resp.sendRedirect("/User?userID=" + userService.getUserID( user.getLogin()));
+        logger.debug(("Request was redirected to UserServlet"));
     }
 
     @SneakyThrows
@@ -50,8 +47,5 @@ public class LoginServlet extends HttpServlet {
         resp.sendRedirect("/JSP/Entrance.jsp?error");
         logger.debug(("Request was redirected to Entrance.jsp"));
     }
-
-    //connection pool
-
-
 }
+

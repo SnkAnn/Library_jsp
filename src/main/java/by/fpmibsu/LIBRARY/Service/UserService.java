@@ -1,12 +1,15 @@
 package by.fpmibsu.LIBRARY.Service;
 
+import by.fpmibsu.LIBRARY.DAO.LiteratureDAO;
 import by.fpmibsu.LIBRARY.DAO.UserDAO;
 import by.fpmibsu.LIBRARY.DTO.CreateUserDto;
 import by.fpmibsu.LIBRARY.DTO.UserDto;
+import by.fpmibsu.LIBRARY.entity.User;
 import by.fpmibsu.LIBRARY.exception.ValidationException;
 import by.fpmibsu.LIBRARY.mapper.CreateUserMapper;
 import by.fpmibsu.LIBRARY.mapper.UserMapper;
 import by.fpmibsu.LIBRARY.validator.CreateUserValidator;
+import lombok.SneakyThrows;
 
 import java.util.Optional;
 
@@ -15,6 +18,7 @@ public class UserService {
     private static final UserService INSTANCE = new UserService();
     //private static CreateUserValidator createUserValidator=CreateUserValidator.getInstance();
     private static final UserDAO userDAO = UserDAO.getInstance();
+    private static final LiteratureDAO literatureDAO=LiteratureDAO.getInstance();
     private static final CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
     private final UserMapper userMapper = UserMapper.getInstance();
     private static final ImageService imageService=ImageService.getInstance();
@@ -40,4 +44,27 @@ public class UserService {
         return INSTANCE;
     }
 
+    public User getUser(String userID) {
+        return UserDAO.getUser(userID);
+    }
+
+    public Integer getUserID(String login) {
+        return UserDAO.getUserID(login);
+    }
+    @SneakyThrows
+    public void updateUserProfilePicture(Integer userId, String filePath){
+        userDAO.updateUserProfilePicture(userId, filePath);
+    }
+
+    public void updateUserDescription(int userID, String newDescription) {
+        userDAO. updateUserDescription(userID, newDescription);
+    }
+
+    public String getBookById(int last_book) {
+        return literatureDAO.getBookById(last_book);
+    }
+
+    public Integer getAuthorByBookId(int last_book) {
+        return literatureDAO.getAuthorByBookId(last_book);
+    }
 }
