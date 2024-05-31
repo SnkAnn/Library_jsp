@@ -10,8 +10,8 @@
 </head>
 <body>
 <div id="header"></div>
-<a href="/JSP/Entrance.jsp" target="_self" class="enter_link">Вход</a>
-<a href="/JSP/Registration.jsp" target="_self" class="reg_link">Регистрация</a>
+<a href="/login" target="_self" class="enter_link">Вход</a>
+<a href="/registration" target="_self" class="reg_link">Регистрация</a>
 
 <div class="hamburger-menu-1">
     <input id="menu__toggle_1" type="checkbox" />

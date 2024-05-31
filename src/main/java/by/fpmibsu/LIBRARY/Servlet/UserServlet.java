@@ -27,6 +27,7 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("userID", user.getUserID());
         request.setAttribute("userImage", user.getImage());
         request.setAttribute("userDescription", user.getInformation());
+        request.setAttribute("lastBookId",user.getLast_book());
         request.setAttribute("lastBook",userService.getBookById(user.getLast_book()));
         request.setAttribute("authorID",userService.getAuthorByBookId( user.getLast_book()));
         request.getRequestDispatcher("/JSP/UserPage.jsp").forward(request, response);

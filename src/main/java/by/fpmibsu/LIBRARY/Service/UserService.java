@@ -4,6 +4,7 @@ import by.fpmibsu.LIBRARY.DAO.LiteratureDAO;
 import by.fpmibsu.LIBRARY.DAO.UserDAO;
 import by.fpmibsu.LIBRARY.DTO.CreateUserDto;
 import by.fpmibsu.LIBRARY.DTO.UserDto;
+import by.fpmibsu.LIBRARY.entity.Literature;
 import by.fpmibsu.LIBRARY.entity.User;
 import by.fpmibsu.LIBRARY.exception.ValidationException;
 import by.fpmibsu.LIBRARY.mapper.CreateUserMapper;
@@ -11,6 +12,8 @@ import by.fpmibsu.LIBRARY.mapper.UserMapper;
 import by.fpmibsu.LIBRARY.validator.CreateUserValidator;
 import lombok.SneakyThrows;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -61,10 +64,18 @@ public class UserService {
     }
 
     public String getBookById(int last_book) {
-        return literatureDAO.getBookById(last_book);
+        return literatureDAO.getBookTitleById(last_book);
     }
 
     public Integer getAuthorByBookId(int last_book) {
         return literatureDAO.getAuthorByBookId(last_book);
+    }
+    public List<Literature> getUserReadingBooks(String userID){
+        String readingBooksID=userDAO.getUserReadingBooks(userID);
+        List<Literature> literatureList=new ArrayList<>();
+        for (String bookID:readingBooksID.split("/")){
+            literatureList.add(literatureDAO.getBookById(bookID));
+        }
+        return  literatureList;
     }
 }

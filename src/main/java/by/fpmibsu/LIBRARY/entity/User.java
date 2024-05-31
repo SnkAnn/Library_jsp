@@ -19,10 +19,21 @@ public class User {
     private String image;
     private String information;
     private int last_book;
+    private String reading_books_id;
     public List<Complaints> complaints;
     public List<Bookmark> bookmarksOfUser;
     public Literature literatureOfAuthor;
 
+    public User(int userID,String login,String password,String mail,String image,String information,int last_book,String reading_books_id) {
+        this.UserID=userID;
+        this.login=login;
+        this.password=password;
+        this.mail=mail;
+        this.image=image;
+        this.information=information;
+        this.last_book=last_book;
+        this.reading_books_id=reading_books_id;
+    }
     public User(int userID,String login,String password,String mail,String image,String information,int last_book) {
          this.UserID=userID;
          this.login=login;

@@ -15,11 +15,12 @@ public class UserDAO implements GenericDAO<Integer, User> {
     private static final UserDAO INSTANCE = new UserDAO();
     private static final String UPDATE_PROFILE_PICTURE_SQL = "UPDATE users SET image = ? WHERE user_id = ?";
 
-    private static final String SAVE_SQL = "INSERT INTO users (login, password, mail,image,information,last_book) VALUES (?,?,?,?,?,?)";
+    private static final String SAVE_SQL = "INSERT INTO users (login, password, mail,image,information,last_book,reading_books_id) VALUES (?,?,?,?,?,?,?)";
     private static final String GET_BY_EMAIL_AND_PASSWORD_SQL = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String GET_USER = "SELECT * FROM users WHERE user_id=?";
     private static final String GET_USER_ID = "SELECT DISTINCT user_id FROM users WHERE login=?";
     private static final String UPDATE_USER_TEXT = "UPDATE users SET information = ? WHERE user_id = ?";
+    private static final String GET_USER_READING_BOOKS = "SELECT reading_books_id FROM users WHERE user_id=?";
 
 
     public static UserDAO getInstance() {
@@ -34,7 +35,8 @@ public class UserDAO implements GenericDAO<Integer, User> {
                 resultSet.getObject("mail", String.class),
                 resultSet.getObject("image", String.class),
                 resultSet.getObject("information", String.class),
-                resultSet.getObject("last_book", Integer.class)
+                resultSet.getObject("last_book", Integer.class),
+                resultSet.getObject("reading_books_id",String.class)
         );
     }
 
@@ -96,7 +98,8 @@ public class UserDAO implements GenericDAO<Integer, User> {
             preparedStatement.setObject(3, entity.getMail());
             preparedStatement.setObject(4, entity.getImage());
             preparedStatement.setObject(5, entity.getInformation());
-            preparedStatement.setObject(6, entity.getLastBook());
+            preparedStatement.setObject(6, 0);
+            preparedStatement.setObject(7, entity.getReading_books_id());
 
             preparedStatement.executeUpdate();
 
@@ -157,4 +160,18 @@ public class UserDAO implements GenericDAO<Integer, User> {
     }
 
 
+    public String getUserReadingBooks(String userID) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(GET_USER_READING_BOOKS)) {
+            preparedStatement.setInt(1, Integer.parseInt(userID));
+            var resultSet = preparedStatement.executeQuery();
+            String readBooks = null;
+            while (resultSet.next()) {
+                readBooks=resultSet.getObject("reading_books_id",String.class);
+            }
+            return readBooks;
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -23,6 +23,7 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
     private static final String GET_TEXT_OF_BOOK ="SELECT DISTINCT text_of_book FROM literature WHERE title = ? AND author_id=? ";
     private static final String GET_BOOK_BY_ID ="SELECT title FROM literature WHERE literature_id=?" ;
     private static final String GET_AUTHOR_BY_BOOK_ID ="SELECT author_id FROM literature WHERE literature_id=?" ;
+    private static final String GET_BOOK__BY_ID = "SELECT * FROM literature WHERE literature_id=?";
 
     public static LiteratureDAO getInstance() {
         return INSTANCE;
@@ -189,7 +190,7 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
         }
     }
 
-    public String getBookById(int last_book) {
+    public String getBookTitleById(int last_book) {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(GET_BOOK_BY_ID)) {
             preparedStatement.setInt(1, last_book);
@@ -214,6 +215,21 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
                 res= resultSet.getObject("author_id", Integer.class);
             }
             return res;
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Literature getBookById(String bookID) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(GET_BOOK__BY_ID)) {
+            preparedStatement.setInt(1, Integer.parseInt(bookID));
+            var resultSet = preparedStatement.executeQuery();
+            Literature lit=new Literature();
+            while (resultSet.next()) {
+                lit= buildLiterature(resultSet);
+            }
+            return lit;
         } catch (SQLException | PersistentException e) {
             throw new RuntimeException(e);
         }

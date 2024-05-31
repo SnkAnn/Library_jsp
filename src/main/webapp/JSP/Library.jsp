@@ -1,5 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="by.fpmibsu.LIBRARY.entity.Genre" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
@@ -10,8 +8,9 @@
 </head>
 <body>
 <div id="header"></div>
-<a href="/JSP/Entrance.jsp" target="_self" class="enter_link">Вход</a>
-<a href="/JSP/Registration.jsp" target="_self" class="reg_link">Регистрация</a>
+<a href="/login" target="_self" class="enter_link">Вход</a>
+<a href="/registration" target="_self" class="reg_link">Регистрация</a>
+
 
 <div class="hamburger-menu-1">
     <input id="menu__toggle_1" type="checkbox" />
