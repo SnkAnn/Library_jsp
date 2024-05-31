@@ -29,10 +29,10 @@
 </form>
 <div class="buttons-container">
     <form class="button_for_author">
-        <button onclick="window.open('/JSP/Entrance.jsp')">Стать автором</button>
+        <button onclick="window.open('/UserPersonBooks')">Стать автором</button>
     </form>
     <form class="button_for_reading">
-        <button onclick="window.open('/JSP/BookReading.jsp')">Продолжить прочтение</button>
+        <button onclick="window.open('/TextOfBook')">Продолжить прочтение</button>
     </form>
 </div>
 <div class="genres-container">

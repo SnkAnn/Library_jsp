@@ -1,37 +1,87 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Library</title>
-  <link rel="stylesheet" href="../CSS/UserPage.css">
+  <title>Publish Your Book</title>
+  <link rel="stylesheet" href="../CSS/BookAdding.css">
 </head>
 <body>
-<div class="hamburger-menu">
-  <input id="menu__toggle" type="checkbox" />
-  <label class="menu__btn" for="menu__toggle">
-    <span></span>
-  </label>
-  <ul class="menu__box">
-    <li><a class="menu__item" href="/JSP/Favorite_Book.jsp">Мои прочтенные книги</a></li>
+<header>
+
+</header>
+
+<button id="publish-button">Publish</button>
+
+<div id="book-container">
+  <form id="book-form">
+    <input type="text" id="search-input" placeholder="Search page...">
+    <textarea rows="15" cols="70"></textarea>
+    <div id="page-number">Page 1</div>
+    <button id="continue-button">Continue</button>
+    <input type="file" id="book-file-input" style="display: none;">
+    <label for="book-file-input" id="publish-file-button">Publish File</label>
+  </form>
+
+  <ul class="bookmark-list">
+    <li>Bookmark 1</li>
+    <li>Bookmark 2</li>
+    <li>Bookmark 3</li>
   </ul>
 </div>
-<div class="person">
 
-  <a><div class="profile-image"><img  width="200px" height=" 220px", src="../Images/person.gif "></div><p1>Описание какой я красивый...........................................................................</p1></a>
-  <a1>
-    <button onclick="AddBook()">Мои книги</button>
-    <br>
-    <button onclick="selectProfileImage()">Выбрать фотографию</button>
+<a href="#" id="bookmarks-button">Bookmarks</a>
+<a href="#" id="return-button">Return</a>
 
-  </a1>
-  <a2> <button onclick="continueReading()">Продолжить прочтение</button>
-    <br>
-    <button onclick="editDescription()">Изменить</button>
-  </a2>
-  <a3> ..... </a3>
-</div>
-<script src="../JS/UserPage.js"></script>
-<input type="file" id="profile-image-input" style="display: none;" onchange="handleProfileImageChange(event)">
+<script>
+  var backButton = document.getElementById('back-button');
+  var publishButton = document.getElementById('publish-button');
+  var continueButton = document.getElementById('continue-button');
+  var bookmarksButton = document.getElementById('bookmarks-button');
+  var returnButton = document.getElementById('return-button');
+  var bookFileInput = document.getElementById('book-file-input');
+
+  backButton.addEventListener('click', function() {
+    // Go back to the previous page
+    history.back();
+  });
+
+  publishButton.addEventListener('click', function() {
+    alert('Book published!');
+  });
+
+  continueButton.addEventListener('click', function() {
+    // Increment the page number and update the display
+    var pageNumber = parseInt(document.getElementById('page-number').textContent.replace('Page ', ''));
+    pageNumber++;
+    document.getElementById('page-number').textContent = 'Page ' + pageNumber;
+  });
+
+  bookmarksButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    alert('Bookmarks');
+  });
+
+  returnButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    // Return to the previous page
+    history.back();
+  });
+
+  publishFileButton.addEventListener('click', function() {
+    bookFileInput.click();
+  });
+
+  bookFileInput.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      var content = e.target.result;
+      // Perform actions with the file content
+      console.log(content);
+    };
+
+    reader.readAsText(file);
+  });
+</script>
 </body>
 </html>
-

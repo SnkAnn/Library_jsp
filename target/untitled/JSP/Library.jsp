@@ -1,5 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="by.fpmibsu.LIBRARY.entity.Genre" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
@@ -12,6 +10,7 @@
 <div id="header"></div>
 <a href="/login" target="_self" class="enter_link">Вход</a>
 <a href="/registration" target="_self" class="reg_link">Регистрация</a>
+
 
 <div class="hamburger-menu-1">
     <input id="menu__toggle_1" type="checkbox" />
@@ -30,10 +29,10 @@
 </form>
 <div class="buttons-container">
     <form class="button_for_author">
-        <button onclick="window.open('/JSP/Entrance.jsp')">Стать автором</button>
+        <button onclick="window.open('/UserPersonBooks')">Стать автором</button>
     </form>
     <form class="button_for_reading">
-        <button onclick="window.open('/JSP/BookReading.jsp')">Продолжить прочтение</button>
+        <button onclick="window.open('/TextOfBook')">Продолжить прочтение</button>
     </form>
 </div>
 <div class="genres-container">

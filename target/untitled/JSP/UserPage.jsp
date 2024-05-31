@@ -14,6 +14,7 @@
         <span></span>
     </label>
     <ul class="menu__box">
+        <li><a class= "menu__item_1" href="<c:url value='/Library?userID=${userID}'/>">Вернуться на главную</a> </li>
         <li><a class="menu__item_1" href="<c:url value='/FavoriteBook?userID=${userID}'/>">Прочтенные мной книги</a></li>
 
     </ul>
@@ -71,7 +72,7 @@
     }
 
         function AddBook() {
-            window.location.href = '/BookAdding?userID=${userID}';
+            window.location.href = '/UserPersonBooks?userID=${userID}';
         }
 
         function selectProfileImage() {

@@ -24,6 +24,8 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
     private static final String GET_BOOK_BY_ID ="SELECT title FROM literature WHERE literature_id=?" ;
     private static final String GET_AUTHOR_BY_BOOK_ID ="SELECT author_id FROM literature WHERE literature_id=?" ;
     private static final String GET_BOOK__BY_ID = "SELECT * FROM literature WHERE literature_id=?";
+    private static final String GET_BOOK__BY_AUTHOR_ID = "SELECT * FROM literature WHERE author_id=?";
+    private static final String UPDATE_BOOK_TEXT = "UPDATE literature SET text_of_book = ? WHERE literature_id=?";
 
     public static LiteratureDAO getInstance() {
         return INSTANCE;
@@ -44,6 +46,21 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
 
     @Override
     public void update(Literature object) {
+
+    }
+
+    @SneakyThrows
+    public void updateBookText(String bookText,String bookID) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(UPDATE_BOOK_TEXT)) {
+            preparedStatement.setString(1, bookText);
+            preparedStatement.setInt(2, Integer.parseInt(bookID));
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.next();
+        }
+
     }
 
     public List<Literature> findAll() {
@@ -228,6 +245,21 @@ public class LiteratureDAO implements GenericDAO<Integer, Literature> {
             Literature lit=new Literature();
             while (resultSet.next()) {
                 lit= buildLiterature(resultSet);
+            }
+            return lit;
+        } catch (SQLException | PersistentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Literature> getBooksByAuthorID(String userID) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(GET_BOOK__BY_AUTHOR_ID)) {
+            preparedStatement.setInt(1, Integer.parseInt(userID));
+            var resultSet = preparedStatement.executeQuery();
+            List<Literature> lit=new ArrayList<>();
+            while (resultSet.next()) {
+                lit.add(buildLiterature(resultSet));
             }
             return lit;
         } catch (SQLException | PersistentException e) {

@@ -41,4 +41,21 @@ public class LiteratureService {
     public String getBookTextForRead(String book,String AuthorID){
         return literatureDAO.getBookTextForRead(book, AuthorID);
     }
+
+    public List<Literature> getBooksByAuthorID(String userID) {
+        return literatureDAO.getBooksByAuthorID(userID);
+    }
+
+
+    public void updateBookText(String bookText,String bookID) {
+        literatureDAO.updateBookText(bookText,bookID);
+    }
+
+    public void createBook(Literature book) {
+        literatureDAO.save(book);
+    }
+
+    public Literature getBookByID(String bookID) {
+        return literatureDAO.getBookById(bookID);
+    }
 }

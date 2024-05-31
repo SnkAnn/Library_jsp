@@ -72,7 +72,7 @@
     }
 
         function AddBook() {
-            window.location.href = '/BookAdding?userID=${userID}';
+            window.location.href = '/UserPersonBooks?userID=${userID}';
         }
 
         function selectProfileImage() {

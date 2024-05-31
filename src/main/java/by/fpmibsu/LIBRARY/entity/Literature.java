@@ -79,8 +79,8 @@ public class Literature {
         return author;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthor(int authorID) {
+        this.authorLiteratureID = authorID;
     }
 
     public Reviews getReview() {
@@ -157,5 +157,9 @@ public class Literature {
 
     public Object getTextOfBook() {
         return textOfBook;
+    }
+
+    public void setTextOfBook(String bookNewText) {
+        this.textOfBook=bookNewText;
     }
 }
